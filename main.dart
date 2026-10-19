@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
-const names = ['صبح اذانی', 'گون دوغومو', 'ناهار اذانی', 'ایکیندی اذانی', 'گون باتومی', 'آخشام اذانی', 'گجه اذانی', 'گجه یاریسی'];
+List<String> names = ['صبح اذانی', 'گون دوغومو', 'ناهار اذانی', 'ایکیندی اذانی', 'گون باتومی', 'آخشام اذانی', 'گجه اذانی', 'گجه یاریسی'];
 List<int> adhanIdx = [0, 2, 3, 5, 6]; // ezan çalınacak vakitler
 final plugin = FlutterLocalNotificationsPlugin();
 NotificationDetails adhanDetails(String res) => NotificationDetails(
@@ -87,9 +87,9 @@ String fmt(double h) {
   return '${(mm ~/ 60).toString().padLeft(2, '0')}:${(mm % 60).toString().padLeft(2, '0')}';
 }
 
-const mg = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
-const mj = ['آغلار گولر', 'گولن آی', 'قیزاران آی', 'قورا بیشیرن', 'قویروق دوغان', 'زومار آیی', 'خزل آیی', 'قیروو آیی', 'آذر', 'چیلله', 'دوندوران آی', 'بایرام آیی'];
-const dn = ['دوز گونو', 'آرا گون', 'اود گونو', 'سو گونو', 'آینی گونو', 'یئل لی گون', 'سود گونو']; // Pazartesi'den başlar
+List<String> mg = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+List<String> mj = ['آغلار گولر', 'گولن آی', 'قیزاران آی', 'قورا بیشیرن', 'قویروق دوغان', 'زومار آیی', 'خزل آیی', 'قیروو آیی', 'آذر', 'چیلله', 'دوندوران آی', 'بایرام آیی'];
+List<String> dn = ['دوز گونو', 'آرا گون', 'اود گونو', 'سو گونو', 'آینی گونو', 'یئل لی گون', 'سود گونو']; // Pazartesi'den başlar
 
 const br = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178];
 
@@ -155,7 +155,7 @@ String dateText(DateTime d) {
   return '${j[2]} ${mj[j[1] - 1]} ${j[0]} - ${d.day} ${mg[d.month - 1]} ${d.year}';
 }
 
-const hn = ['Muharrem', 'Safer', 'Rebiülevvel', 'Rebiülahir', 'Cemaziyelevvel', 'Cemaziyelahir', 'Recep', 'Şaban', 'Ramazan', 'Şevval', 'Zilkade', 'Zilhicce'];
+List<String> hn = ['Muharrem', 'Safer', 'Rebiülevvel', 'Rebiülahir', 'Cemaziyelevvel', 'Cemaziyelahir', 'Recep', 'Şaban', 'Ramazan', 'Şevval', 'Zilkade', 'Zilhicce'];
 int lunarAdj = 1; // İran'ın resmi Hicri Kameri tarihine göre ±gün düzeltmesi
 
 // ★ işaretli günler resmi tatildir
@@ -224,6 +224,137 @@ bool isHoliday(DateTime d, bool jal, [bool qam = false]) =>
     eventsFor(d, jal, qam).any((e) => e.contains('★')) || (jal && d.weekday == DateTime.friday);
 
 const irProv = <String, String>{'تهران': 'تهران', 'اسلامشهر': 'تهران', 'ورامین': 'تهران', 'شهریار': 'تهران', 'کرج': 'البرز', 'قم': 'قم', 'اراک': 'مرکزی', 'ساوه': 'مرکزی', 'قزوین': 'قزوین', 'زنجان': 'زنجان', 'ابهر': 'زنجان', 'رشت': 'گیلان', 'لاهیجان': 'گیلان', 'بندر انزلی': 'گیلان', 'لنگرود': 'گیلان', 'آستارا': 'گیلان', 'رودسر': 'گیلان', 'ساری': 'مازندران', 'آمل': 'مازندران', 'بابل': 'مازندران', 'قائم‌شهر': 'مازندران', 'بهشهر': 'مازندران', 'گرگان': 'گلستان', 'گنبد کاووس': 'گلستان', 'آزادشهر': 'گلستان', 'سمنان': 'سمنان', 'شاهرود': 'سمنان', 'دامغان': 'سمنان', 'بجنورد': 'خراسان شمالی', 'مشهد': 'خراسان رضوی', 'نیشابور': 'خراسان رضوی', 'سبزوار': 'خراسان رضوی', 'تربت حیدریه': 'خراسان رضوی', 'قوچان': 'خراسان رضوی', 'کاشمر': 'خراسان رضوی', 'گناباد': 'خراسان رضوی', 'بیرجند': 'خراسان جنوبی', 'تبریز': 'آذربایجان شرقی', 'مراغه': 'آذربایجان شرقی', 'مرند': 'آذربایجان شرقی', 'اهر': 'آذربایجان شرقی', 'سراب': 'آذربایجان شرقی', 'میانه': 'آذربایجان شرقی', 'بناب': 'آذربایجان شرقی', 'شبستر': 'آذربایجان شرقی', 'ارومیه': 'آذربایجان غربی', 'خوی': 'آذربایجان غربی', 'میاندوآب': 'آذربایجان غربی', 'مهاباد': 'آذربایجان غربی', 'بوکان': 'آذربایجان غربی', 'سلماس': 'آذربایجان غربی', 'ماکو': 'آذربایجان غربی', 'چهاربرج': 'آذربایجان غربی', 'اردبیل': 'اردبیل', 'پارس‌آباد': 'اردبیل', 'مشگین‌شهر': 'اردبیل', 'خلخال': 'اردبیل', 'سنندج': 'کردستان', 'سقز': 'کردستان', 'بانه': 'کردستان', 'مریوان': 'کردستان', 'قروه': 'کردستان', 'کرمانشاه': 'کرمانشاه', 'همدان': 'همدان', 'ملایر': 'همدان', 'نهاوند': 'همدان', 'ایلام': 'ایلام', 'خرم‌آباد': 'لرستان', 'بروجرد': 'لرستان', 'دورود': 'لرستان', 'اهواز': 'خوزستان', 'دزفول': 'خوزستان', 'آبادان': 'خوزستان', 'خرمشهر': 'خوزستان', 'ماهشهر': 'خوزستان', 'بهبهان': 'خوزستان', 'ایذه': 'خوزستان', 'یاسوج': 'کهگیلویه و بویراحمد', 'شهرکرد': 'چهارمحال و بختیاری', 'اصفهان': 'اصفهان', 'کاشان': 'اصفهان', 'نجف‌آباد': 'اصفهان', 'خمینی‌شهر': 'اصفهان', 'شاهین‌شهر': 'اصفهان', 'یزد': 'یزد', 'شیراز': 'فارس', 'لار': 'فارس', 'جهرم': 'فارس', 'مرودشت': 'فارس', 'کازرون': 'فارس', 'فسا': 'فارس', 'بوشهر': 'بوشهر', 'بندرعباس': 'هرمزگان', 'زاهدان': 'سیستان و بلوچستان', 'زابل': 'سیستان و بلوچستان', 'چابهار': 'سیستان و بلوچستان', 'ایرانشهر': 'سیستان و بلوچستان', 'کرمان': 'کرمان', 'سیرجان': 'کرمان', 'رفسنجان': 'کرمان', 'جیرفت': 'کرمان', 'بم': 'کرمان'};
+const langNames = ['Türkçe', 'Azərbaycan dili', 'آذربایجان دیلی', 'فارسی', 'English', 'العربية', 'Русский'];
+int langIdx = 0, nameIdx = 2;
+final langRev = ValueNotifier<int>(0);
+bool get rtl => langIdx == 2 || langIdx == 3 || langIdx == 5;
+
+const _t = <String, String>{
+  "Uygulama ayarları": "Tətbiq ayarları|تطبیق آیارلاری|تنظیمات برنامه|App settings|إعدادات التطبيق|Настройки приложения",
+  "Şehir seçimi": "Şəhər seçimi|شهر سئچیمی|انتخاب شهر|Choose city|اختيار المدينة|Выбор города",
+  "Vakit ayarları": "Vaxt ayarları|واخت آیارلاری|تنظیمات اوقات شرعی|Prayer time settings|إعدادات أوقات الصلاة|Настройки времени намаза",
+  "Ana sayfa ve bildirimler": "Ana səhifə və bildirişlər|آنا صحیفه و بیلدیریشلر|صفحه اصلی و اعلان‌ها|Home page and notifications|الصفحة الرئيسية والإشعارات|Главная и уведомления",
+  "Renk seçimi": "Rəng seçimi|رنگ سئچیمی|انتخاب رنگ|Choose color|اختيار اللون|Выбор цвета",
+  "Dil": "Dil|دیل|زبان|Language|اللغة|Язык",
+  "Uygulama dili": "Tətbiq dili|تطبیق دیلی|زبان برنامه|App language|لغة التطبيق|Язык приложения",
+  "Ay, gün ve vakit adlarının dili": "Ay, gün və vaxt adlarının dili|آی، گون و واخت آدلارینین دیلی|زبان نام ماه‌ها، روزها و اوقات|Language of month, day and prayer names|لغة أسماء الشهور والأيام والأوقات|Язык названий месяцев, дней и времён",
+  "Miladi": "Miladi|میلادی|میلادی|Gregorian|ميلادي|Григорианский",
+  "Şemsî": "Şəmsi|شمسی|شمسی|Solar Hijri|هجري شمسي|Солнечный хиджры",
+  "Kameri": "Qəməri|قمری|قمری|Lunar Hijri|هجري قمري|Лунный хиджры",
+  "Not": "Qeyd|قئید|یادداشت|Note|ملاحظة|Заметка",
+  "Ezanı 10 saniye sonra dene": "Azanı 10 saniyə sonra yoxla|اذانی ۱۰ ثانیه سونرا یوخلا|اذان را ۱۰ ثانیه بعد امتحان کن|Test adhan in 10 seconds|جرّب الأذان بعد 10 ثوانٍ|Проверить азан через 10 секунд",
+  "Hicri Kameri düzeltme (İran)": "Hicri-Qəməri düzəliş (İran)|هجری قمری دوزلیش (ایران)|اصلاح تاریخ قمری (ایران)|Lunar Hijri adjustment (Iran)|تعديل الهجري القمري (إيران)|Коррекция лунного хиджры (Иран)",
+  "Dini günler hesapla bulunur, resmi ilandan 1 gün farklı olabilir": "Dini günlər hesablama ilə tapılır, rəsmi elandan 1 gün fərqli ola bilər|دینی گونلر حسابلاما ایله تاپیلیر، رسمی اعلاندان ۱ گون فرقلی اولا بیلر|روزهای دینی محاسبه‌ای است و ممکن است ۱ روز با اعلام رسمی تفاوت داشته باشد|Religious days are calculated and may differ by 1 day from the official announcement|الأيام الدينية محسوبة وقد تختلف يوماً عن الإعلان الرسمي|Религиозные даты рассчитаны и могут отличаться на 1 день от официальных",
+  "Ana sayfada göster": "Ana səhifədə göstər|آنا صحیفه ده گؤستر|نمایش در صفحه اصلی|Show on home page|عرض في الصفحة الرئيسية|Показывать на главной",
+  "Bildirimler": "Bildirişlər|بیلدیریشلر|اعلان‌ها|Notifications|الإشعارات|Уведомления",
+  "Tema": "Tema|تما|پوسته|Theme|المظهر|Тема",
+  "Telefon ayarına göre": "Telefon ayarına görə|تلفون آیارینا گؤره|مطابق تنظیمات گوشی|Follow phone setting|حسب إعداد الهاتف|Как в телефоне",
+  "Gündüz": "Gündüz|گوندوز|روز|Day|نهاري|День",
+  "Gece": "Gecə|گجه|شب|Night|ليلي|Ночь",
+  "Ana renk": "Əsas rəng|آنا رنگ|رنگ اصلی|Main color|اللون الأساسي|Основной цвет",
+  "Ad, enlem (−66 ile 66) ve boylam (−180 ile 180) gerekli": "Ad, enlik (−66…66) və uzunluq (−180…180) lazımdır|آد، انلیک (−۶۶…۶۶) و اوزونلوق (−۱۸۰…۱۸۰) لازیمدیر|نام، عرض (۶۶− تا ۶۶) و طول (۱۸۰− تا ۱۸۰) لازم است|Name, latitude (−66 to 66) and longitude (−180 to 180) required|الاسم وخط العرض (−66 إلى 66) وخط الطول (−180 إلى 180) مطلوبة|Нужны название, широта (−66…66) и долгота (−180…180)",
+  "Yerli şehir": "Yerli şəhər|یئرلی شهر|شهر داخلی|Domestic city|مدينة محلية|Город (Иран)",
+  "Yabancı şehir": "Xarici şəhər|خارجی شهر|شهر خارجی|Foreign city|مدينة أجنبية|Другая страна",
+  "Yeni şehir": "Yeni şəhər|یئنی شهر|شهر جدید|New city|مدينة جديدة|Новый город",
+  "Kaydet": "Yadda saxla|یادداشدا ساخلا|ذخیره|Save|حفظ|Сохранить",
+  "Şehrim listede yok": "Şəhərim siyahıda yoxdur|شهریم سیاهیدا یوخدور|شهر من در لیست نیست|My city is not listed|مدينتي غير موجودة|Моего города нет в списке",
+  "Eyalet": "Vilayət|ویلایت|استان|Province|المحافظة|Провинция",
+  "Şehir": "Şəhər|شهر|شهر|City|المدينة|Город",
+  "Ülke": "Ölkə|اؤلکه|کشور|Country|الدولة|Страна",
+  "Şehir adı": "Şəhər adı|شهر آدی|نام شهر|City name|اسم المدينة|Название города",
+  "Enlem (ör. 36.5)": "Enlik (məs. 36.5)|انلیک (مثلاً ۳۶٫۵)|عرض جغرافیایی (مثلاً ۳۶٫۵)|Latitude (e.g. 36.5)|خط العرض (مثال 36.5)|Широта (напр. 36.5)",
+  "Boylam (ör. 46.15)": "Uzunluq (məs. 46.15)|اوزونلوق (مثلاً ۴۶٫۱۵)|طول جغرافیایی (مثلاً ۴۶٫۱۵)|Longitude (e.g. 46.15)|خط الطول (مثال 46.15)|Долгота (напр. 46.15)",
+  "Ezan": "Azan|اذان|اذان|Adhan|الأذان|Азан",
+  "Ezan öncesi uyarı": "Azandan əvvəl xəbərdarlıq|اذاندان اول خبردارلیق|هشدار قبل از اذان|Alert before adhan|تنبيه قبل الأذان|Напоминание до азана",
+  "Hesaplama yöntemi": "Hesablama üsulu|حسابلاما اوصولو|روش محاسبه|Calculation method|طريقة الحساب|Метод расчёта",
+  "Ezan otomatik çalsın": "Azan avtomatik oxunsun|اذان اوتوماتیک اوخونسون|پخش خودکار اذان|Play adhan automatically|تشغيل الأذان تلقائياً|Автовоспроизведение азана",
+  "Müezzin": "Müəzzin|مؤذن|مؤذن|Muezzin|المؤذن|Муэдзин",
+  "Ezandan önce uyarı ver": "Azandan əvvəl xəbərdarlıq et|اذاندان اول خبردارلیق ائت|هشدار قبل از اذان|Alert before adhan|تنبيه قبل الأذان|Напоминать до азана",
+  "Kaç dakika önce": "Neçə dəqiqə əvvəl|نئچه دقیقه اول|چند دقیقه قبل|Minutes before|قبل كم دقيقة|За сколько минут",
+  "dk": "dəq|دق|دقیقه|min|د|мин",
+  "dk kaldı": "dəq qalıb|دق قالیب|دقیقه مانده|min left|د متبقية|мин осталось",
+  "Vakit listesi": "Vaxt siyahısı|واخت سیاهیسی|فهرست اوقات|Prayer times list|قائمة الأوقات|Список времён",
+  "Günün olayları ve tatiller": "Günün hadisələri və tətillər|گونون حادثه لری و تعطیللر|رویدادها و تعطیلات روز|Day events and holidays|أحداث اليوم والعطل|События и праздники дня",
+  "Hicri Kameri tarih": "Hicri-Qəməri tarix|هجری قمری تاریخ|تاریخ قمری|Lunar Hijri date|التاريخ الهجري القمري|Дата по лунному хиджре",
+  "Not kutusu": "Qeyd xanası|قئید خاناسی|کادر یادداشت|Note box|مربع الملاحظات|Поле заметки",
+  "Ezan bildiriminde tarihi göster": "Azan bildirişində tarixi göstər|اذان بیلدیریشینده تاریخی گؤستر|نمایش تاریخ در اعلان اذان|Show date in adhan notification|عرض التاريخ في إشعار الأذان|Показывать дату в уведомлении",
+  "Ezan 14 gün için kuruldu": "Azan 14 gün üçün quruldu|اذان ۱۴ گون اوچون قورولدو|اذان برای ۱۴ روز تنظیم شد|Adhan set for 14 days|تم ضبط الأذان لمدة 14 يوماً|Азан настроен на 14 дней",
+  "10 saniye sonra ezan çalmalı": "10 saniyə sonra azan oxunmalıdır|۱۰ ثانیه سونرا اذان اوخونمالیدیر|اذان تا ۱۰ ثانیه دیگر پخش می‌شود|Adhan should play in 10 seconds|سيُشغَّل الأذان بعد 10 ثوانٍ|Азан прозвучит через 10 секунд",
+  "Ayarlar kaydedildi, ezan yeniden kuruldu": "Ayarlar saxlandı, azan yenidən quruldu|آیارلار ساخلاندی، اذان یئنیدن قورولدو|تنظیمات ذخیره و اذان دوباره تنظیم شد|Settings saved, adhan rescheduled|تم الحفظ وإعادة ضبط الأذان|Настройки сохранены, азан перенастроен",
+  "Hicri Kameri": "Hicri-Qəməri|هجری قمری|قمری|Lunar Hijri|هجري قمري|Лунный хиджры",
+  "Hicri Şemsî": "Hicri-Şəmsi|هجری شمسی|شمسی|Solar Hijri|هجري شمسي|Солнечный хиджры",
+};
+
+String T(String k) {
+  if (langIdx == 0) return k;
+  final v = _t[k];
+  if (v == null) return k;
+  final p = v.split('|');
+  return langIdx - 1 < p.length ? p[langIdx - 1] : k;
+}
+
+class Tx extends StatelessWidget {
+  final String k;
+  final TextStyle? style;
+  const Tx(this.k, {super.key, this.style});
+  @override
+  Widget build(BuildContext context) => Text(T(k), style: style);
+}
+
+const _p = [
+  "Sabah|Doğuş|Öğle|İkindi|Gün batımı|Akşam|Yatsı|Gece yarısı",
+  "Sübh azanı|Gün doğumu|Nahar azanı|İkindi azanı|Gün batımı|Axşam azanı|Gecə azanı|Gecə yarısı",
+  "صبح اذانی|گون دوغومو|ناهار اذانی|ایکیندی اذانی|گون باتومی|آخشام اذانی|گجه اذانی|گجه یاریسی",
+  "اذان صبح|طلوع آفتاب|اذان ظهر|اذان عصر|غروب آفتاب|اذان مغرب|اذان عشاء|نیمه‌شب",
+  "Fajr|Sunrise|Dhuhr|Asr|Sunset|Maghrib|Isha|Midnight",
+  "الفجر|الشروق|الظهر|العصر|الغروب|المغرب|العشاء|منتصف الليل",
+  "Фаджр|Восход|Зухр|Аср|Закат|Магриб|Иша|Полночь",
+];
+const _g = [
+  "Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık",
+  "Yanvar|Fevral|Mart|Aprel|May|İyun|İyul|Avqust|Sentyabr|Oktyabr|Noyabr|Dekabr",
+  "یانوار|فئورال|مارت|آپرئل|مای|ایون|ایول|آوقوست|سئنتیابر|اوکتیابر|نویابر|دکابر",
+  "ژانویه|فوریه|مارس|آوریل|مه|ژوئن|ژوئیه|اوت|سپتامبر|اکتبر|نوامبر|دسامبر",
+  "January|February|March|April|May|June|July|August|September|October|November|December",
+  "يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر",
+  "Январь|Февраль|Март|Апрель|Май|Июнь|Июль|Август|Сентябрь|Октябрь|Ноябрь|Декабрь",
+];
+const _j = [
+  "Ferverdin|Erdibehişt|Hordad|Tir|Mordad|Şehriver|Mihr|Aban|Azer|Dey|Behmen|İsfend",
+  "Ağlar Gülər|Gülən Ay|Qızaran Ay|Qora Bişirən|Quyruq Doğan|Zumar Ayı|Xəzəl Ayı|Qıroğ Ayı|Azər|Çillə|Donduran Ay|Bayram Ayı",
+  "آغلار گولر|گولن آی|قیزاران آی|قورا بیشیرن|قویروق دوغان|زومار آیی|خزل آیی|قیروو آیی|آذر|چیلله|دوندوران آی|بایرام آیی",
+  "فروردین|اردیبهشت|خرداد|تیر|مرداد|شهریور|مهر|آبان|آذر|دی|بهمن|اسفند",
+  "Farvardin|Ordibehesht|Khordad|Tir|Mordad|Shahrivar|Mehr|Aban|Azar|Dey|Bahman|Esfand",
+  "فروردين|أرديبهشت|خرداد|تير|مرداد|شهريور|مهر|آبان|آذر|دي|بهمن|إسفند",
+  "Фарвардин|Ордибехешт|Хордад|Тир|Мордад|Шахривар|Мехр|Абан|Азар|Дей|Бахман|Эсфанд",
+];
+const _h = [
+  "Muharrem|Safer|Rebiülevvel|Rebiülahir|Cemaziyelevvel|Cemaziyelahir|Recep|Şaban|Ramazan|Şevval|Zilkade|Zilhicce",
+  "Məhərrəm|Səfər|Rəbiüləvvəl|Rəbiülaxır|Cəmadiyələvvəl|Cəmadiyəlaxır|Rəcəb|Şəban|Ramazan|Şəvval|Zilqədə|Zilhiccə",
+  "محرم|صفر|ربیع‌الاول|ربیع‌الثانی|جمادی‌الاول|جمادی‌الثانی|رجب|شعبان|رمضان|شوال|ذی‌القعده|ذی‌الحجه",
+  "محرم|صفر|ربیع‌الاول|ربیع‌الثانی|جمادی‌الاول|جمادی‌الثانی|رجب|شعبان|رمضان|شوال|ذی‌القعده|ذی‌الحجه",
+  "Muharram|Safar|Rabi' al-awwal|Rabi' al-thani|Jumada al-awwal|Jumada al-thani|Rajab|Sha'ban|Ramadan|Shawwal|Dhu al-Qi'dah|Dhu al-Hijjah",
+  "محرم|صفر|ربيع الأول|ربيع الآخر|جمادى الأولى|جمادى الآخرة|رجب|شعبان|رمضان|شوال|ذو القعدة|ذو الحجة",
+  "Мухаррам|Сафар|Раби уль-авваль|Раби уль-ахир|Джумада уль-уля|Джумада уль-ахира|Раджаб|Шаабан|Рамадан|Шавваль|Зуль-каада|Зуль-хиджжа",
+];
+const _d = [
+  "Pzt|Sal|Çar|Per|Cum|Cmt|Paz",
+  "B.e.|Ç.a.|Çər|C.a.|Cümə|Şnb|Baz",
+  "دوز گونو|آرا گون|اود گونو|سو گونو|آینی گونو|یئل لی گون|سود گونو",
+  "دوشنبه|سه‌شنبه|چهارشنبه|پنجشنبه|جمعه|شنبه|یکشنبه",
+  "Mon|Tue|Wed|Thu|Fri|Sat|Sun",
+  "الإثنين|الثلاثاء|الأربعاء|الخميس|الجمعة|السبت|الأحد",
+  "Пн|Вт|Ср|Чт|Пт|Сб|Вс",
+];
+
+void applyNames() {
+  names = _p[nameIdx].split('|');
+  mg = _g[nameIdx].split('|');
+  mj = _j[nameIdx].split('|');
+  hn = _h[nameIdx].split('|');
+  dn = _d[nameIdx].split('|');
+}
+
 String err = '';
 
 Future<void> sched(int id, String title, String body, tz.TZDateTime t, [NotificationDetails? d]) async {
@@ -253,7 +384,7 @@ Future<void> schedule(City c) async {
       }
       final rt = at.subtract(Duration(minutes: remindMin));
       if (remindIdx.contains(i) && rt.isAfter(now)) {
-        await sched(id++, names[i], '$remindMin dk kaldı', tz.TZDateTime.from(rt, tz.local), remindDetails);
+        await sched(id++, names[i], '$remindMin ${T('dk kaldı')}', tz.TZDateTime.from(rt, tz.local), remindDetails);
       }
     }
   }
@@ -312,12 +443,13 @@ Future<void> saveBool(String k, bool v) async {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(AnimatedBuilder(
-      animation: Listenable.merge([themeMode, seedColor]),
+      animation: Listenable.merge([themeMode, seedColor, langRev]),
       builder: (_, __) => MaterialApp(
           title: 'تورک تقویمی و اذانی',
           theme: ThemeData(colorSchemeSeed: seedColor.value, useMaterial3: true),
           darkTheme: ThemeData(colorSchemeSeed: seedColor.value, brightness: Brightness.dark, useMaterial3: true),
           themeMode: themeMode.value,
+          builder: (c, w) => Directionality(textDirection: rtl ? TextDirection.rtl : TextDirection.ltr, child: w!),
           home: const Home())));
 }
 
@@ -345,7 +477,18 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     setView(sel);
+    langRev.addListener(_onLang);
     load();
+  }
+
+  void _onLang() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void dispose() {
+    langRev.removeListener(_onLang);
+    super.dispose();
   }
 
   Future<void> load() async {
@@ -391,6 +534,10 @@ class _HomeState extends State<Home> {
         jal = p.getBool('jal') ?? false;
       }
       lunarAdj = p.getInt('ladj') ?? 1;
+      langIdx = p.getInt('lang') ?? 0;
+      nameIdx = p.getInt('nlang') ?? 2;
+      applyNames();
+      langRev.value++;
       methodIdx = (p.getInt('method') ?? 0).clamp(0, methods.length - 1).toInt();
       remindMin = p.getInt('rmin') ?? 10;
       remindIdx = (p.getStringList('remind') ?? []).map(int.parse).toList();
@@ -419,7 +566,7 @@ class _HomeState extends State<Home> {
     await perms();
     try {
       await schedule(c);
-      setState(() => msg = 'Ezan 14 gün için kuruldu');
+      setState(() => msg = T('Ezan 14 gün için kuruldu'));
     } catch (e) {
       setState(() => err += 'alarm kurma: $e\n');
     }
@@ -428,7 +575,7 @@ class _HomeState extends State<Home> {
   Future<void> test() async {
     try {
       await sched(9999, 'Deneme', dateText(DateTime.now()), tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)));
-      setState(() => msg = '10 saniye sonra ezan çalmalı');
+      setState(() => msg = T('10 saniye sonra ezan çalmalı'));
     } catch (e) {
       setState(() => err += 'deneme: $e\n');
     }
@@ -447,7 +594,7 @@ class _HomeState extends State<Home> {
       await schedule(c);
       setState(() {
         city = c;
-        msg = 'Ezan 14 gün için kuruldu';
+        msg = T('Ezan 14 gün için kuruldu');
       });
     } catch (e) {
       setState(() {
@@ -458,10 +605,10 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> openSettings() async {
-    const items = ['Şehir seçimi', 'Vakit ayarları', 'Ana sayfa ve bildirimler', 'Renk seçimi'];
+    final items = [T('Şehir seçimi'), T('Vakit ayarları'), T('Ana sayfa ve bildirimler'), T('Renk seçimi'), T('Dil')];
     final r = await showDialog<int>(
         context: context,
-        builder: (c) => SimpleDialog(title: const Text('Uygulama ayarları'), children: [
+        builder: (c) => SimpleDialog(title: const Tx('Uygulama ayarları'), children: [
               for (var i = 0; i < items.length; i++)
                 SimpleDialogOption(
                     onPressed: () => Navigator.pop(c, i),
@@ -472,10 +619,10 @@ class _HomeState extends State<Home> {
       await pickCity();
       return;
     }
-    await Navigator.push(context, MaterialPageRoute(builder: (_) => r == 1 ? const PrayerSettingsPage() : SettingsPage(section: r)));
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => r == 1 ? const PrayerSettingsPage() : (r == 4 ? const LanguagePage() : SettingsPage(section: r))));
     try {
       await schedule(city!);
-      setState(() => msg = 'Ayarlar kaydedildi, ezan yeniden kuruldu');
+      setState(() => msg = T('Ayarlar kaydedildi, ezan yeniden kuruldu'));
     } catch (e) {
       setState(() => err += 'alarm kurma: $e\n');
     }
@@ -605,9 +752,9 @@ class _HomeState extends State<Home> {
       body: ListView(padding: const EdgeInsets.all(16), children: [
         SegmentedButton<int>(
           segments: const [
-            ButtonSegment(value: 0, label: Text('Miladi')),
-            ButtonSegment(value: 1, label: Text('Şemsî')),
-            ButtonSegment(value: 2, label: Text('Kameri')),
+            ButtonSegment(value: 0, label: Tx('Miladi')),
+            ButtonSegment(value: 1, label: Tx('Şemsî')),
+            ButtonSegment(value: 2, label: Tx('Kameri')),
           ],
           selected: {jal ? 1 : (qam ? 2 : 0)},
           onSelectionChanged: (s) async {
@@ -630,8 +777,8 @@ class _HomeState extends State<Home> {
         grid(cs),
         const Divider(),
         Text(dayTitle, style: Theme.of(context).textTheme.titleMedium),
-        if (jal && showQamari) Text('Hicri Kameri: ${hs[2]} ${hn[hs[1] - 1]} ${hs[0]}'),
-        if (qam) Text('Hicri Şemsî: ${j[2]} ${mj[j[1] - 1]} ${j[0]}'),
+        if (jal && showQamari) Text('${T('Hicri Kameri')}: ${hs[2]} ${hn[hs[1] - 1]} ${hs[0]}'),
+        if (qam) Text('${T('Hicri Şemsî')}: ${j[2]} ${mj[j[1] - 1]} ${j[0]}'),
         if (showEvents)
           for (final e in eventsFor(sel, jal, qam))
           ListTile(
@@ -647,7 +794,7 @@ class _HomeState extends State<Home> {
           key: ValueKey(dkey(sel)),
           initialValue: notes[dkey(sel)] ?? '',
           maxLines: 3,
-          decoration: const InputDecoration(labelText: 'Not', border: OutlineInputBorder()),
+          decoration: InputDecoration(labelText: T('Not'), border: OutlineInputBorder()),
           onChanged: (v) {
             if (v.trim().isEmpty) {
               notes.remove(dkey(sel));
@@ -659,7 +806,7 @@ class _HomeState extends State<Home> {
         ),
         const SizedBox(height: 12),
         ListTile(leading: const Icon(Icons.location_on), title: Text(city!.name), subtitle: Text(city!.group), onTap: pickCity),
-        FilledButton(onPressed: test, child: const Text('Ezanı 10 saniye sonra dene')),
+        FilledButton(onPressed: test, child: const Tx('Ezanı 10 saniye sonra dene')),
         Padding(padding: const EdgeInsets.only(top: 12), child: Text(msg)),
         if (err.isNotEmpty) SelectableText(err, style: const TextStyle(color: Colors.red)),
       ]),
@@ -725,7 +872,7 @@ class _SettingsState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    const titles = ['', 'Vakit ayarları', 'Ana sayfa ve bildirimler', 'Renk seçimi'];
+    final titles = ['', T('Vakit ayarları'), T('Ana sayfa ve bildirimler'), T('Renk seçimi')];
     final List<Widget> body;
     if (widget.section == 1) {
       body = [
@@ -733,8 +880,8 @@ class _SettingsState extends State<SettingsPage> {
         for (var i = 0; i < 8; i++) SwitchListTile(title: Text(names[i]), value: adhanIdx.contains(i), onChanged: (v) => toggle(i, v)),
         const Divider(),
         ListTile(
-          title: const Text('Hicri Kameri düzeltme (İran)'),
-          subtitle: const Text('Dini günler hesapla bulunur, resmi ilandan 1 gün farklı olabilir'),
+          title: const Tx('Hicri Kameri düzeltme (İran)'),
+          subtitle: const Tx('Dini günler hesapla bulunur, resmi ilandan 1 gün farklı olabilir'),
           trailing: Row(mainAxisSize: MainAxisSize.min, children: [
             IconButton(icon: const Icon(Icons.remove), onPressed: () => setLadj(lunarAdj - 1)),
             Text('$lunarAdj'),
@@ -744,26 +891,26 @@ class _SettingsState extends State<SettingsPage> {
       ];
     } else if (widget.section == 2) {
       body = [
-        const ListTile(title: Text('Ana sayfada göster')),
-        flag('Vakit listesi', 'showTimes', showTimes, (x) => showTimes = x),
-        flag('Günün olayları ve tatiller', 'showEvents', showEvents, (x) => showEvents = x),
-        flag('Hicri Kameri tarih', 'showQamari', showQamari, (x) => showQamari = x),
-        flag('Not kutusu', 'showNote', showNote, (x) => showNote = x),
+        const ListTile(title: Tx('Ana sayfada göster')),
+        flag(T('Vakit listesi'), 'showTimes', showTimes, (x) => showTimes = x),
+        flag(T('Günün olayları ve tatiller'), 'showEvents', showEvents, (x) => showEvents = x),
+        flag(T('Hicri Kameri tarih'), 'showQamari', showQamari, (x) => showQamari = x),
+        flag(T('Not kutusu'), 'showNote', showNote, (x) => showNote = x),
         const Divider(),
-        const ListTile(title: Text('Bildirimler')),
-        flag('Ezan bildiriminde tarihi göster', 'notifDate', notifDate, (x) => notifDate = x),
+        const ListTile(title: Tx('Bildirimler')),
+        flag(T('Ezan bildiriminde tarihi göster'), 'notifDate', notifDate, (x) => notifDate = x),
       ];
     } else {
       body = [
-        const ListTile(title: Text('Tema')),
+        const ListTile(title: Tx('Tema')),
         RadioListTile<ThemeMode>(
-            title: const Text('Telefon ayarına göre'), value: ThemeMode.system, groupValue: themeMode.value, onChanged: (m) => saveTheme(m!)),
+            title: const Tx('Telefon ayarına göre'), value: ThemeMode.system, groupValue: themeMode.value, onChanged: (m) => saveTheme(m!)),
         RadioListTile<ThemeMode>(
-            title: const Text('Gündüz'), value: ThemeMode.light, groupValue: themeMode.value, onChanged: (m) => saveTheme(m!)),
+            title: const Tx('Gündüz'), value: ThemeMode.light, groupValue: themeMode.value, onChanged: (m) => saveTheme(m!)),
         RadioListTile<ThemeMode>(
-            title: const Text('Gece'), value: ThemeMode.dark, groupValue: themeMode.value, onChanged: (m) => saveTheme(m!)),
+            title: const Tx('Gece'), value: ThemeMode.dark, groupValue: themeMode.value, onChanged: (m) => saveTheme(m!)),
         const Divider(),
-        const ListTile(title: Text('Ana renk')),
+        const ListTile(title: Tx('Ana renk')),
         Wrap(children: [
           for (final c in seeds)
             GestureDetector(
@@ -825,7 +972,7 @@ class _CityState extends State<CityPage> with SingleTickerProviderStateMixin {
   void saveCustom() {
     final la = double.tryParse(latC.text.replaceAll(',', '.')), lo = double.tryParse(lngC.text.replaceAll(',', '.'));
     if (nameC.text.trim().isEmpty || la == null || lo == null || la.abs() > 66 || lo.abs() > 180) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Ad, enlem (−66 ile 66) ve boylam (−180 ile 180) gerekli')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Tx('Ad, enlem (−66 ile 66) ve boylam (−180 ile 180) gerekli')));
       return;
     }
     Navigator.pop(context, City('Özel', nameC.text.trim(), la, lo));
@@ -848,33 +995,33 @@ class _CityState extends State<CityPage> with SingleTickerProviderStateMixin {
     final countries = widget.cities.map((c) => c.group).where((g) => g != 'İran').toSet().toList();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Şehir seçimi'),
-        bottom: TabBar(controller: tc, tabs: const [Tab(text: 'Yerli şehir'), Tab(text: 'Yabancı şehir'), Tab(text: 'Yeni şehir')]),
+        title: const Tx('Şehir seçimi'),
+        bottom: TabBar(controller: tc, tabs: const [Tab(child: Tx('Yerli şehir')), Tab(child: Tx('Yabancı şehir')), Tab(child: Tx('Yeni şehir'))]),
       ),
       body: TabBarView(controller: tc, children: [
         ListView(padding: const EdgeInsets.all(16), children: [
-          drop('Eyalet', prov, provs, (v) => setState(() {
+          drop(T('Eyalet'), prov, provs, (v) => setState(() {
                 prov = v;
                 irCity = irNames(v).first;
               })),
-          drop('Şehir', irCity, irNames(prov), (v) => setState(() => irCity = v)),
-          FilledButton(onPressed: () => done('İran', irCity), child: const Text('Kaydet')),
-          TextButton(onPressed: () => tc.animateTo(2), child: const Text('Şehrim listede yok')),
+          drop(T('Şehir'), irCity, irNames(prov), (v) => setState(() => irCity = v)),
+          FilledButton(onPressed: () => done('İran', irCity), child: const Tx('Kaydet')),
+          TextButton(onPressed: () => tc.animateTo(2), child: const Tx('Şehrim listede yok')),
         ]),
         ListView(padding: const EdgeInsets.all(16), children: [
-          drop('Ülke', country, countries, (v) => setState(() {
+          drop(T('Ülke'), country, countries, (v) => setState(() {
                 country = v;
                 foCity = foNames(v).first;
               })),
-          drop('Şehir', foCity, foNames(country), (v) => setState(() => foCity = v)),
-          FilledButton(onPressed: () => done(country, foCity), child: const Text('Kaydet')),
-          TextButton(onPressed: () => tc.animateTo(2), child: const Text('Şehrim listede yok')),
+          drop(T('Şehir'), foCity, foNames(country), (v) => setState(() => foCity = v)),
+          FilledButton(onPressed: () => done(country, foCity), child: const Tx('Kaydet')),
+          TextButton(onPressed: () => tc.animateTo(2), child: const Tx('Şehrim listede yok')),
         ]),
         ListView(padding: const EdgeInsets.all(16), children: [
-          Padding(padding: const EdgeInsets.only(bottom: 12), child: TextField(controller: nameC, decoration: const InputDecoration(labelText: 'Şehir adı', border: OutlineInputBorder()))),
-          Padding(padding: const EdgeInsets.only(bottom: 12), child: TextField(controller: latC, keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true), decoration: const InputDecoration(labelText: 'Enlem (ör. 36.5)', border: OutlineInputBorder()))),
-          Padding(padding: const EdgeInsets.only(bottom: 12), child: TextField(controller: lngC, keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true), decoration: const InputDecoration(labelText: 'Boylam (ör. 46.15)', border: OutlineInputBorder()))),
-          FilledButton(onPressed: saveCustom, child: const Text('Kaydet')),
+          Padding(padding: const EdgeInsets.only(bottom: 12), child: TextField(controller: nameC, decoration: InputDecoration(labelText: T('Şehir adı'), border: OutlineInputBorder()))),
+          Padding(padding: const EdgeInsets.only(bottom: 12), child: TextField(controller: latC, keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true), decoration: InputDecoration(labelText: T('Enlem (ör. 36.5)'), border: OutlineInputBorder()))),
+          Padding(padding: const EdgeInsets.only(bottom: 12), child: TextField(controller: lngC, keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true), decoration: InputDecoration(labelText: T('Boylam (ör. 46.15)'), border: OutlineInputBorder()))),
+          FilledButton(onPressed: saveCustom, child: const Tx('Kaydet')),
         ]),
       ]),
     );
@@ -927,7 +1074,7 @@ class _PrayerSettingsState extends State<PrayerSettingsPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-            title: const Text('Vakit ayarları'), bottom: const TabBar(tabs: [Tab(text: 'Ezan'), Tab(text: 'Ezan öncesi uyarı')])),
+            title: const Tx('Vakit ayarları'), bottom: const TabBar(tabs: [Tab(child: Tx('Ezan')), Tab(child: Tx('Ezan öncesi uyarı'))])),
         body: TabBarView(children: [
           ListView(padding: const EdgeInsets.all(8), children: [
             Padding(
@@ -935,20 +1082,20 @@ class _PrayerSettingsState extends State<PrayerSettingsPage> {
                 child: DropdownButtonFormField<int>(
                   value: methodIdx,
                   isExpanded: true,
-                  decoration: const InputDecoration(labelText: 'Hesaplama yöntemi', border: OutlineInputBorder()),
+                  decoration: InputDecoration(labelText: T('Hesaplama yöntemi'), border: OutlineInputBorder()),
                   items: [for (var i = 0; i < methods.length; i++) DropdownMenuItem(value: i, child: Text(methods[i].name))],
                   onChanged: (v) => upd(() => methodIdx = v!),
                 )),
-            const ListTile(title: Text('Ezan otomatik çalsın')),
+            const ListTile(title: Tx('Ezan otomatik çalsın')),
             for (final i in five) sw(i, adhanIdx),
             const Divider(),
-            const ListTile(title: Text('Müezzin')),
+            const ListTile(title: Tx('Müezzin')),
             for (final i in five)
               ListTile(title: Text(names[i]), trailing: FilledButton.tonal(onPressed: () => pickMuezzin(i), child: Text(label(i)))),
             const Divider(),
             ListTile(
-              title: const Text('Hicri Kameri düzeltme (İran)'),
-              subtitle: const Text('Dini günler hesapla bulunur, resmi ilandan 1 gün farklı olabilir'),
+              title: const Tx('Hicri Kameri düzeltme (İran)'),
+              subtitle: const Tx('Dini günler hesapla bulunur, resmi ilandan 1 gün farklı olabilir'),
               trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                 IconButton(icon: const Icon(Icons.remove), onPressed: () => upd(() => lunarAdj = (lunarAdj - 1).clamp(-2, 2).toInt())),
                 Text('$lunarAdj'),
@@ -957,19 +1104,66 @@ class _PrayerSettingsState extends State<PrayerSettingsPage> {
             ),
           ]),
           ListView(children: [
-            const ListTile(title: Text('Ezandan önce uyarı ver')),
+            const ListTile(title: Tx('Ezandan önce uyarı ver')),
             for (final i in five) sw(i, remindIdx),
             ListTile(
-              title: const Text('Kaç dakika önce'),
+              title: const Tx('Kaç dakika önce'),
               trailing: DropdownButton<int>(
                 value: remindMin,
-                items: [for (final x in [5, 10, 15, 20, 30]) DropdownMenuItem(value: x, child: Text('$x dk'))],
+                items: [for (final x in [5, 10, 15, 20, 30]) DropdownMenuItem(value: x, child: Text('$x ${T('dk')}'))],
                 onChanged: (v) => upd(() => remindMin = v!),
               ),
             ),
           ]),
         ]),
       ),
+    );
+  }
+}
+
+class LanguagePage extends StatefulWidget {
+  const LanguagePage({super.key});
+  @override
+  State<LanguagePage> createState() => _LangState();
+}
+
+class _LangState extends State<LanguagePage> {
+  Future<void> save() async {
+    try {
+      final p = await SharedPreferences.getInstance();
+      await p.setInt('lang', langIdx);
+      await p.setInt('nlang', nameIdx);
+    } catch (_) {}
+  }
+
+  void setUi(int i) {
+    langIdx = i;
+    langRev.value++;
+    save();
+    setState(() {});
+  }
+
+  void setNames(int i) {
+    nameIdx = i;
+    applyNames();
+    langRev.value++;
+    save();
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Tx('Dil')),
+      body: ListView(children: [
+        const ListTile(title: Tx('Uygulama dili')),
+        for (var i = 0; i < langNames.length; i++)
+          RadioListTile<int>(title: Text(langNames[i]), value: i, groupValue: langIdx, onChanged: (v) => setUi(v!)),
+        const Divider(),
+        const ListTile(title: Tx('Ay, gün ve vakit adlarının dili')),
+        for (var i = 0; i < langNames.length; i++)
+          RadioListTile<int>(title: Text(langNames[i]), value: i, groupValue: nameIdx, onChanged: (v) => setNames(v!)),
+      ]),
     );
   }
 }
