@@ -21,8 +21,19 @@ b = re.sub(r'compileOptions\s*\{', 'compileOptions {\n        coreLibraryDesugar
 b += "\ndependencies {\n    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'\n}\n"
 open(g, 'w').write(b)
 os.makedirs('android/app/src/main/res/raw', exist_ok=True)
-mp3 = [f for f in os.listdir('.') if f.lower().endswith('.mp3')][0]
-shutil.copy(mp3, 'android/app/src/main/res/raw/azan.mp3')
+res_list = []
+for f in sorted(os.listdir('.')):
+    if f.lower().endswith('.mp3'):
+        base = f[:-4]
+        res = re.sub(r'[^a-z0-9_]', '_', base.lower())
+        if not re.match(r'[a-z]', res):
+            res = 'm_' + res
+        shutil.copy(f, 'android/app/src/main/res/raw/' + res + '.mp3')
+        res_list.append(res + '|' + base)
+open('muezzins.txt', 'w', encoding='utf-8').write('\n'.join(res_list) + '\n')
+ps = open('pubspec.yaml', encoding='utf-8').read()
+if 'muezzins.txt' not in ps:
+    open('pubspec.yaml', 'w', encoding='utf-8').write(ps.replace('    - cities.txt', '    - cities.txt\n    - muezzins.txt'))
 shutil.copy('main.dart', 'lib/main.dart')
 
 # Release kodu küçültme (R8) bildirim eklentisini bozuyor: kapat ve kuralları ekle
